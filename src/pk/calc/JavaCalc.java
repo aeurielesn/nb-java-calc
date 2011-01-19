@@ -14,12 +14,12 @@ class JavaCalc {
     System.out.println("---------------------------------------");
     System.out.println("Operatory:\t\t+, -, *, /, ^");
     System.out.println("Funkcje:\t\tsin, cos, tg, ctg");
-    System.out.println("Sta³e:\t\t\tPI");
+    System.out.println("StaÂ³e:\t\t\tPI");
     System.out.println("---------------------------------------");
-    System.out.println("Przyk³ad:\t\t((2.0+7)/3+(14-3)*4)/2");
-    System.out.println("Przyk³ad:\t\tsin(PI/2+2*PI)");
+    System.out.println("PrzykÂ³ad:\t\t((2.0+7)/3+(14-3)*4)/2");
+    System.out.println("PrzykÂ³ad:\t\tsin(PI/2+2*PI)");
     System.out.println("---------------------------------------");
-    System.out.println("Wcisnij Ctrl+C by wyjœæ");
+    System.out.println("Wcisnij Ctrl+C by wyjÅ“Ã¦");
     System.out.println("---------------------------------------");
      
     String expr = null;

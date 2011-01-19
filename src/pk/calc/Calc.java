@@ -51,77 +51,77 @@ class Calc {
     while(iterator.hasNext()) {
       Token token = (Token)iterator.next();
      
-      // Jeœli symbol jest liczb¹
+      // JeÅ“li symbol jest liczbÂ¹
       if(token instanceof Number) {
-        // dodaj go do kolejki wyjœcie
+        // dodaj go do kolejki wyjÅ“cie
         rpnNotation.add(token);
       }
-      // Jeœli symbol jest funkcj¹
+      // JeÅ“li symbol jest funkcjÂ¹
       else if(token instanceof Function) {
-        // w³ó¿ go na stos.
+        // wÂ³Ã³Â¿ go na stos.
         stack.push(token);
       }
-      // Jeœli symbol jest znakiem oddzielaj¹cym argumenty funkcji (np. przecinek):
+      // JeÅ“li symbol jest znakiem oddzielajÂ¹cym argumenty funkcji (np. przecinek):
       else if(token instanceof Coma) {
-        // Dopóki najwy¿szy element stosu nie jest lewym nawiasem,
+        // DopÃ³ki najwyÂ¿szy element stosu nie jest lewym nawiasem,
         while(!(stack.peek() instanceof L_Brace)) {
-          // zdejmij element ze stosu i dodaj go do kolejki wyjœcie.
+          // zdejmij element ze stosu i dodaj go do kolejki wyjÅ“cie.
           rpnNotation.add((Token)stack.pop());
         }
-        // Jeœli lewy nawias nie zosta³ napotkany oznacza to, 
-        // ¿e znaki oddzielaj¹ce zosta³y postawione w z³ym miejscu lub nawiasy s¹ Ÿle umieszczone.
+        // JeÅ“li lewy nawias nie zostaÂ³ napotkany oznacza to, 
+        // Â¿e znaki oddzielajÂ¹ce zostaÂ³y postawione w zÂ³ym miejscu lub nawiasy sÂ¹ Å¸le umieszczone.
         if(!(stack.peek() instanceof L_Brace)) {
           throw new Exception("Missing left bracket in expression");
         }
       }
-      // Jeœli symbol jest operatorem, o1
+      // JeÅ“li symbol jest operatorem, o1
       else if(token instanceof Operator) {
-        // 1) dopóki na górze stosu znajduje siê operator, o2 taki, ¿e:
+        // 1) dopÃ³ki na gÃ³rze stosu znajduje siÃª operator, o2 taki, Â¿e:
         Operator t = (Operator) token;
         Object stackTop = stack.peek();
         if(stackTop != null && stackTop instanceof Operator) {
           int priority = ((Operator)stackTop).priority();
-          //o1 jest ³¹czny lub lewostronnie ³¹czny i jego kolejnoœæ wykonywania jest mniejsza lub równa kolejnoœci wyk. o2, lub
+          //o1 jest Â³Â¹czny lub lewostronnie Â³Â¹czny i jego kolejnoÅ“Ã¦ wykonywania jest mniejsza lub rÃ³wna kolejnoÅ“ci wyk. o2, lub
           boolean test1 = (t.associativity() == "both" || t.associativity() == "left") && (t.priority() <= priority);
-          //o1 jest prawostronnie ³¹czny i jego kolejnoœæ wykonywania jest mniejsza od o2,
+          //o1 jest prawostronnie Â³Â¹czny i jego kolejnoÅ“Ã¦ wykonywania jest mniejsza od o2,
           boolean test2 = (t.associativity() == "right") && (t.priority() < priority);
           if(test1 || test2) {
-            // zdejmij o2 ze stosu i do³ó¿ go do kolejki wyjœciowej;
+            // zdejmij o2 ze stosu i doÂ³Ã³Â¿ go do kolejki wyjÅ“ciowej;
             rpnNotation.add((Token)stack.pop());
           }
         }
-        // 2) w³ó¿ o1 na stos operatorów.
+        // 2) wÂ³Ã³Â¿ o1 na stos operatorÃ³w.
         stack.push(token);
       }
-      // Je¿eli symbol jest lewym nawiasem
+      // JeÂ¿eli symbol jest lewym nawiasem
       else if(token instanceof L_Brace) {
-        // to w³ó¿ go na stos.
+        // to wÂ³Ã³Â¿ go na stos.
         stack.push(token);
       }
       
-      // Je¿eli symbol jest prawym nawiasem
+      // JeÂ¿eli symbol jest prawym nawiasem
       else if(token instanceof R_Brace) {
         boolean leftBracketExists = false;
         Object operator;
         while(!stack.empty()) {
           operator = stack.pop();
-          // dopóki symbol na górze stosu nie jest lewym nawiasem,
+          // dopÃ³ki symbol na gÃ³rze stosu nie jest lewym nawiasem,
           if(operator instanceof L_Brace) {
             leftBracketExists = true;
             break;
           }
-          // to zdejmuj operatory ze stosu i dok³adaj je do kolejki wyjœcie
+          // to zdejmuj operatory ze stosu i dokÂ³adaj je do kolejki wyjÅ“cie
           else {
             rpnNotation.add((Token)operator);
           }
         }
 
-        // Teraz, jeœli najwy¿szy element na stosie jest funkcj¹, tak¿e do³ó¿ go do kolejki wyjœcie.
+        // Teraz, jeÅ“li najwyÂ¿szy element na stosie jest funkcjÂ¹, takÂ¿e doÂ³Ã³Â¿ go do kolejki wyjÅ“cie.
         if(stack.peek() instanceof Function) {
           rpnNotation.add((Token)stack.pop());
         }
 
-        // Jeœli stos zostanie opró¿niony i nie napotkasz lewego nawiasu, oznacza to, ¿e nawiasy zosta³y Ÿle umieszczone.
+        // JeÅ“li stos zostanie oprÃ³Â¿niony i nie napotkasz lewego nawiasu, oznacza to, Â¿e nawiasy zostaÂ³y Å¸le umieszczone.
         if(stack.empty() && !leftBracketExists) {
           throw new Exception("Missing left bracket in expression");
         }
@@ -129,12 +129,12 @@ class Calc {
       
       Util.log("Calc::convertToRPN - processing token: " + token + " Stack: " + stack + " RPN: " + rpnNotation);
     }
-    // Jeœli nie ma wiêcej symboli do przeczytania, zdejmuj wszystkie symbole ze stosu (jeœli jakieœ s¹) i dodawaj je do kolejki wyjœcia.
+    // JeÅ“li nie ma wiÃªcej symboli do przeczytania, zdejmuj wszystkie symbole ze stosu (jeÅ“li jakieÅ“ sÂ¹) i dodawaj je do kolejki wyjÅ“cia.
     Object operator;
     while(!stack.empty()) {
       operator = stack.pop();
-      // Powinny to byæ wy³¹cznie operatory, 
-      // jeœli natrafisz na jakiœ nawias, znaczy to, ¿e nawiasy zosta³y Ÿle umieszczone.
+      // Powinny to byÃ¦ wyÂ³Â¹cznie operatory, 
+      // jeÅ“li natrafisz na jakiÅ“ nawias, znaczy to, Â¿e nawiasy zostaÂ³y Å¸le umieszczone.
       if(operator instanceof Brace) {
         throw new Exception("Mismatched brackets in expression");
       }
