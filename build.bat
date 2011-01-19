@@ -1,1 +1,0 @@
-call c:\Progra~1\Java\jdk1.6.0_13\bin\javac -d classes -classpath classes -Xlint:unchecked pk/calc/*
